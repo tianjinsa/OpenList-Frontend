@@ -16,7 +16,7 @@ import { setSettings } from "~/store"
 import { setArchiveExtensions } from "~/store/archive"
 import { Resp } from "~/types"
 import { base_path, bus, handleRespWithoutAuthAndNotify, r } from "~/utils"
-import { MustUser, UserOrGuest } from "./MustUser"
+import { MustUser } from "./MustUser"
 import "./index.css"
 import { globalStyles } from "./theme"
 
@@ -89,14 +89,6 @@ const App: Component = () => {
                 <MustUser>
                   <Manage />
                 </MustUser>
-              }
-            />
-            <Route
-              path={["/@s/*", "/%40s/*"]}
-              element={
-                <UserOrGuest>
-                  <Home />
-                </UserOrGuest>
               }
             />
             <Route

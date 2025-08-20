@@ -6,7 +6,6 @@ import { CenterIcon } from "./Icon"
 import { bus } from "~/utils"
 import { Download } from "./Download"
 import { Motion, Presence } from "solid-motionone"
-import { useRouter } from "~/hooks"
 
 export const Center = () => {
   const show = createMemo(
@@ -15,7 +14,6 @@ export const Center = () => {
       checkboxOpen() &&
       haveSelected(),
   )
-  const { isShare } = useRouter()
   return (
     <Presence exitBeforeEnter>
       <Show when={show()}>
@@ -43,29 +41,18 @@ export const Center = () => {
               backdropFilter: "blur(8px)",
             }}
           >
-            <Show when={!isShare()}>
-              <For
-                each={[
-                  "rename",
-                  "move",
-                  "copy",
-                  "delete",
-                  "share",
-                  "decompress",
-                ]}
-              >
-                {(name) => {
-                  return (
-                    <CenterIcon
-                      name={name}
-                      onClick={() => {
-                        bus.emit("tool", name)
-                      }}
-                    />
-                  )
-                }}
-              </For>
-            </Show>
+            <For each={["rename", "move", "copy", "delete", "decompress"]}>
+              {(name) => {
+                return (
+                  <CenterIcon
+                    name={name}
+                    onClick={() => {
+                      bus.emit("tool", name)
+                    }}
+                  />
+                )
+              }}
+            </For>
             <CopyLink />
             <Download />
             <CenterIcon
